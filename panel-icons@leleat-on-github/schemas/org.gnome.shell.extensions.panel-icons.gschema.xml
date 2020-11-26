@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<schemalist>
+	<schema id="org.gnome.shell.extensions.panel-icons" path="/org/gnome/shell/extensions/panel-icons/">
+		<key name="panel-height" type="i">
+			<default>0</default>
+		</key>
+
+		<key name="disable-appmenu" type="b">
+			<default>true</default>
+		</key>
+
+		<key name="use-symbolic-icons" type="b">
+			<default>false</default>
+		</key>
+
+		<key name="icon-size" type="i">
+			<default>20</default>
+		</key>
+
+		<key name="display-last-workspace" type="b">
+			<default>true</default>
+		</key>
+
+		<key name="focus-prev-window" type="as">
+			<default><![CDATA[['<Super>a']]]></default>
+		</key>
+
+		<key name="focus-next-window" type="as">
+			<default><![CDATA[['<Super>d']]]></default>
+		</key>
+
+		<key name="toggle-panel" type="as">
+			<default><![CDATA[['<Super>ESCAPE']]]></default>
+		</key>
+	</schema>
+</schemalist>

@@ -1,6 +1,26 @@
-# simple-task-bar
-https://extensions.gnome.org/extension/2672/simple-task-bar/
+# Panel Icons
 
-Very light task bar extension for GNOME Shell.
+This is a fork of https://github.com/fthx/simple-task-bar. 
 
-In this repository you will find the GS 3.36+ version only. You can download the obsolete but fully working 3.28 -> 3.34 version through the above link to GS extension website. You can also add some ".actor" here and here in this current code but I don't have the time to maintain two versions.
+This extension is meant to extend and not change GNOME's default workflow. That's why I removed the interactivity from the original extension. 
+
+Instead the following settings were added:
+
+- adjustable height for the top panel
+- disable AppMenu
+- add keybindings to cycle through the windows on the active workspace based on their order displayed in the top panel (advantage over Super/Alt+Tab is that the order is predictable)
+- add keybindings to toggle the top panel (while maintaining its functionality)
+- cycle through the workspaces by scrolling on the top panel
+
+I recommend "Unite" by hardpixel (https://extensions.gnome.org/extension/1287/unite/) to further improve the panel functionality.
+
+![Preview](preview.png)
+
+## Supported GNOME versions
+
+- 3.36
+- 3.38
+
+## Installation
+
+You should install it via https://extensions.gnome.org. Alternatively, you can download the `panel-icons@leleat-on-github` folder and move it to your extensions folder. Local extensions are in `~/.local/share/gnome-shell/extensions/`.
