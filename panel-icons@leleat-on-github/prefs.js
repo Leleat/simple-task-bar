@@ -61,9 +61,9 @@ const PanelIconsPrefsWidget = new GObject.Class({
 	},
 
 	// manually add the keys to the arrays in this function
-	getBindProperty : function (key) {
+	getBindProperty: function (key) {
 		let ints = ["icon-size", "panel-height"];
-		let bools = ["use-symbolic-icons","display-last-workspace", "disable-appmenu", "enable-keybinding-to-switch-windows", "enable-keybinding-to-toggle-panel"];
+		let bools = ["use-symbolic-icons","display-last-workspace", "disable-appmenu", "enable-keybinding-to-switch-windows", "enable-keybinding-to-toggle-panel", "hide-workspace-switcher-popup"];
 
 		if (ints.includes(key)) {
 			return "value"; // spinbox.value
@@ -74,7 +74,7 @@ const PanelIconsPrefsWidget = new GObject.Class({
 
 	// taken from Overview-Improved by human.experience
 	// https://extensions.gnome.org/extension/2802/overview-improved/
-	makeShortcutEdit(widgetId, storeId, settingKey) {
+	makeShortcutEdit: function (widgetId, storeId, settingKey) {
 		const COLUMN_KEY = 0;
 		const COLUMN_MODS = 1;
 		

@@ -32,5 +32,9 @@
 		<key name="toggle-panel" type="as">
 			<default><![CDATA[['<Super>ESCAPE']]]></default>
 		</key>
+
+		<key name="hide-workspace-switcher-popup" type="b">
+			<default>true</default>
+		</key>
 	</schema>
 </schemalist>

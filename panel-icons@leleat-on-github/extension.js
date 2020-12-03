@@ -12,7 +12,7 @@ function init() {
 }
 
 function enable() {
-	panelIconBar = new PanelAppIconBar(); 
+	panelIconBar = new PanelAppIconBar();
 }
 
 function disable() {
@@ -56,6 +56,7 @@ var PanelAppIconBar = new Lang.Class({
 		this.signalsArray.push( this.settings.connect("changed::disable-appmenu", this.toggleAppmenu.bind(this)) );
 		this.signalsArray.push( this.settings.connect("changed::display-last-workspace", this.updateIcons.bind(this)) );
 		this.signalsArray.push( this.settings.connect("changed::panel-height", this.changePanelHeight.bind(this)) );
+		this.signalsArray.push( this.settings.connect("changed::hide-workspace-switcher-popup", this.toggleWorkspaceSwitcherPopup.bind(this)) );
 
 		// save current height of Panel for later restoration and change to new size
 		this.prevPanelHeight = main.panel.get_height();
@@ -64,6 +65,11 @@ var PanelAppIconBar = new Lang.Class({
 		// hide AppMenu
 		this.toggleAppmenu();
 
+		// disable workspaceSwitcherPopup
+		this.oldWorkspaceSwitcherDisplay = workspaceSwitcherPopup.WorkspaceSwitcherPopup.prototype.display;
+		this.toggleWorkspaceSwitcherPopup();
+
+		// create icon bar in panel
 		this.updateIcons();
 	},
 
@@ -90,11 +96,21 @@ var PanelAppIconBar = new Lang.Class({
 
 		this.settings.run_dispose();
 
-		// remove bgPanel which was used for hiding the Panel
+		// remove panelMasker which was used for hiding the Panel
 		this.panelMasker.destroy();
 
 		// destroy container for Panel icons
 		this.iconContainer.destroy();
+
+		// restore workspace switcher popup
+		this.toggleWorkspaceSwitcherPopup(true);
+	},
+
+	toggleWorkspaceSwitcherPopup(extensionDisabled) {
+		if (extensionDisabled == true || !this.settings.get_boolean("hide-workspace-switcher-popup"))
+			workspaceSwitcherPopup.WorkspaceSwitcherPopup.prototype.display = this.oldWorkspaceSwitcherDisplay;
+		else
+			workspaceSwitcherPopup.WorkspaceSwitcherPopup.prototype.display = () => {};
 	},
 
 	// taken from dash to panel by jderose9
@@ -255,7 +271,11 @@ var PanelAppIconBar = new Lang.Class({
 
 			// create windows icons
 			for (let i = 0; i < windows.length; i++) {
-				let appIcon = new PanelAppIcon(windows[i], iconSize, useSymbolicIcons);
+				let app = Shell.WindowTracker.get_default().get_window_app(windows[i]);
+				if (!app)
+					continue;
+					
+				let appIcon = new PanelAppIcon(app, windows[i], iconSize, useSymbolicIcons);
 				this.iconContainer.add_child(appIcon);
 
 				if (wsIsActive && windows[i].has_focus()) {
@@ -281,7 +301,7 @@ var PanelWorkspaceLabel = GObject.registerClass(
 
 var PanelAppIcon = GObject.registerClass(
 	class PanelAppIcon extends St.Bin {
-		_init(window, iconSize, useSymbolicIcons) {
+		_init(app, window, iconSize, useSymbolicIcons) {
 			super._init({
 				style_class: (window.has_focus()) ? 'focused-app-panel-icons' : 'unfocused-app-panel-icons',
 				opacity: (window.has_focus()) ? 255 : 150,
@@ -289,7 +309,6 @@ var PanelAppIcon = GObject.registerClass(
 				height: main.panel.height
 			});
 
-			let app = Shell.WindowTracker.get_default().get_window_app(window);
 			let icon = app.create_icon_texture(iconSize);
 			this.set_child(icon);
 			
