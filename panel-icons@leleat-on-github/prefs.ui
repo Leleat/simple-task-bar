@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Generated with glade 3.38.1 -->
 <interface domain="unite">
-  <requires lib="gtk+" version="3.22"/>
+  <requires lib="gtk" version="4.0"/>
   <object class="GtkAdjustment" id="IconSize">
     <property name="upper">100</property>
     <property name="value">20</property>
@@ -16,436 +15,257 @@
   </object>
   <object class="GtkListStore" id="focusNextWindowStore">
     <columns>
-      <!-- column-name key -->
       <column type="gint"/>
-      <!-- column-name mods -->
       <column type="gint"/>
     </columns>
   </object>
   <object class="GtkListStore" id="focusPrevWindowStore">
     <columns>
-      <!-- column-name key -->
       <column type="gint"/>
-      <!-- column-name mods -->
       <column type="gint"/>
     </columns>
   </object>
   <object class="GtkListStore" id="togglePanelStore">
     <columns>
-      <!-- column-name key -->
       <column type="gint"/>
-      <!-- column-name mods -->
       <column type="gint"/>
     </columns>
   </object>
   <object class="GtkNotebook" id="main_prefs">
-    <property name="visible">True</property>
-    <property name="can-focus">True</property>
-    <property name="hexpand">True</property>
-    <property name="show-tabs">False</property>
-    <property name="show-border">False</property>
-    <property name="scrollable">True</property>
+    <property name="hexpand">1</property>
+    <property name="show-tabs">0</property>
+    <property name="show-border">0</property>
+    <property name="scrollable">1</property>
     <child>
-      <object class="GtkBox" id="panel_prefs">
-        <property name="visible">True</property>
-        <property name="can-focus">False</property>
-        <property name="valign">start</property>
-        <property name="margin-start">20</property>
-        <property name="margin-end">20</property>
-        <property name="margin-top">20</property>
-        <property name="margin-bottom">20</property>
-        <property name="orientation">vertical</property>
-        <property name="spacing">15</property>
-        <property name="homogeneous">True</property>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="spacing">50</property>
+          <object class="GtkBox" id="panel_prefs">
+            <property name="can-focus">0</property>
+            <property name="valign">start</property>
+            <property name="margin-start">20</property>
+            <property name="margin-end">20</property>
+            <property name="margin-top">20</property>
+            <property name="margin-bottom">20</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">15</property>
+            <property name="homogeneous">1</property>
             <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Additional Panel height</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="panel-height">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="halign">end</property>
-                <property name="valign">center</property>
-                <property name="hexpand">True</property>
-                <property name="text" translatable="yes">20</property>
-                <property name="adjustment">PanelHeight</property>
-                <property name="value">20</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">0</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="spacing">50</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Use symbolic icons</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="use-symbolic-icons">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="valign">center</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">1</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="spacing">50</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Icon size</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSpinButton" id="icon-size">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="halign">end</property>
-                <property name="valign">center</property>
-                <property name="hexpand">True</property>
-                <property name="adjustment">IconSize</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">2</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="spacing">50</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Display last workspace</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="display-last-workspace">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="valign">center</property>
-                <property name="active">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">3</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="spacing">50</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Disable AppMenu</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="disable-appmenu">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="valign">center</property>
-                <property name="active">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">4</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="spacing">50</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Disable Workspace Switcher Popup</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkSwitch" id="hide-workspace-switcher-popup">
-                <property name="visible">True</property>
-                <property name="can-focus">True</property>
-                <property name="valign">center</property>
-                <property name="active">True</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">5</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Default: Super+D
-Make sure the shortcuts aren't already taken. I recommend you also change the keyboard shortcuts for switching the workspaces to Super+W/S and Super+0-9 for one-handed navigation. </property>
-            <property name="spacing">50</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Focus next window (tooltip)</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
-            </child>
-            <child>
-              <object class="GtkTreeView" id="focus-next-window-treeview">
-                <property name="width-request">200</property>
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">end</property>
-                <property name="valign">center</property>
-                <property name="hexpand">True</property>
-                <property name="model">focusNextWindowStore</property>
-                <property name="headers-visible">False</property>
-                <property name="enable-search">False</property>
-                <property name="activate-on-single-click">True</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Additional Panel height</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="panel-height">
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">1</property>
+                    <property name="text" translatable="yes">20</property>
+                    <property name="adjustment">PanelHeight</property>
+                    <property name="value">20</property>
+                  </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">6</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Default: Super+A</property>
-            <property name="spacing">50</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Focus previous window</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkTreeView" id="focus-prev-window-treeview">
-                <property name="width-request">200</property>
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">end</property>
-                <property name="valign">center</property>
-                <property name="hexpand">True</property>
-                <property name="model">focusPrevWindowStore</property>
-                <property name="headers-visible">False</property>
-                <property name="enable-search">False</property>
-                <property name="activate-on-single-click">True</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Use symbolic icons</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSwitch" id="use-symbolic-icons">
+                    <property name="halign">end</property>
+                    <property name="hexpand">1</property>
+                    <property name="valign">center</property>
+                  </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
-            </child>
-          </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">8</property>
-          </packing>
-        </child>
-        <child>
-          <object class="GtkBox">
-            <property name="visible">True</property>
-            <property name="can-focus">False</property>
-            <property name="tooltip-text" translatable="yes">Default: Super+Escape</property>
-            <property name="spacing">50</property>
-            <child>
-              <object class="GtkLabel">
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="valign">center</property>
-                <property name="label" translatable="yes">Toggle Panel</property>
-              </object>
-              <packing>
-                <property name="expand">False</property>
-                <property name="fill">True</property>
-                <property name="position">0</property>
-              </packing>
             </child>
             <child>
-              <object class="GtkTreeView" id="toggle-panel-treeview">
-                <property name="width-request">200</property>
-                <property name="visible">True</property>
-                <property name="can-focus">False</property>
-                <property name="halign">end</property>
-                <property name="valign">center</property>
-                <property name="hexpand">True</property>
-                <property name="model">togglePanelStore</property>
-                <property name="headers-visible">False</property>
-                <property name="enable-search">False</property>
-                <property name="activate-on-single-click">True</property>
-                <child internal-child="selection">
-                  <object class="GtkTreeSelection"/>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Icon size</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSpinButton" id="icon-size">
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">1</property>
+                    <property name="adjustment">IconSize</property>
+                  </object>
                 </child>
               </object>
-              <packing>
-                <property name="expand">True</property>
-                <property name="fill">True</property>
-                <property name="pack-type">end</property>
-                <property name="position">1</property>
-              </packing>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Display last workspace</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSwitch" id="display-last-workspace">
+                    <property name="halign">end</property>
+                    <property name="hexpand">1</property>
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Disable AppMenu</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSwitch" id="disable-appmenu">
+                    <property name="halign">end</property>
+                    <property name="hexpand">1</property>
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Disable Workspace Switcher Popup</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkSwitch" id="hide-workspace-switcher-popup">
+                    <property name="halign">end</property>
+                    <property name="hexpand">1</property>
+                    <property name="valign">center</property>
+                    <property name="active">1</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="tooltip-text" translatable="yes">Default: Super+D
+Make sure the shortcuts aren&apos;t already taken. I recommend you also change the keyboard shortcuts for switching the workspaces to Super+W/S and Super+0-9 for one-handed navigation. </property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Focus next window (tooltip)</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeView" id="focus-next-window-treeview">
+                    <property name="width-request">200</property>
+                    <property name="can-focus">0</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">1</property>
+                    <property name="model">focusNextWindowStore</property>
+                    <property name="headers-visible">0</property>
+                    <property name="enable-search">0</property>
+                    <property name="activate-on-single-click">1</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="tooltip-text" translatable="yes">Default: Super+A</property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Focus previous window</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeView" id="focus-prev-window-treeview">
+                    <property name="width-request">200</property>
+                    <property name="can-focus">0</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">1</property>
+                    <property name="model">focusPrevWindowStore</property>
+                    <property name="headers-visible">0</property>
+                    <property name="enable-search">0</property>
+                    <property name="activate-on-single-click">1</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                  </object>
+                </child>
+              </object>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="can-focus">0</property>
+                <property name="tooltip-text" translatable="yes">Default: Super+Escape</property>
+                <property name="spacing">50</property>
+                <child>
+                  <object class="GtkLabel">
+                    <property name="can-focus">0</property>
+                    <property name="valign">center</property>
+                    <property name="label" translatable="yes">Toggle Panel</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkTreeView" id="toggle-panel-treeview">
+                    <property name="width-request">200</property>
+                    <property name="can-focus">0</property>
+                    <property name="halign">end</property>
+                    <property name="valign">center</property>
+                    <property name="hexpand">1</property>
+                    <property name="model">togglePanelStore</property>
+                    <property name="headers-visible">0</property>
+                    <property name="enable-search">0</property>
+                    <property name="activate-on-single-click">1</property>
+                    <child internal-child="selection">
+                      <object class="GtkTreeSelection"/>
+                    </child>
+                  </object>
+                </child>
+              </object>
             </child>
           </object>
-          <packing>
-            <property name="expand">False</property>
-            <property name="fill">True</property>
-            <property name="position">12</property>
-          </packing>
-        </child>
-      </object>
-      <packing>
-        <property name="tab-expand">True</property>
-      </packing>
     </child>
     <child>
       <placeholder/>

@@ -1,7 +1,10 @@
 const Lang = imports.lang;
-const {main, viewSelector, workspaceSwitcherPopup} = imports.ui;
+const {main, workspaceSwitcherPopup} = imports.ui;
 const {GLib, St, Clutter, Meta, Shell, GObject} = imports.gi;
 const ExtensionUtils = imports.misc.extensionUtils;
+
+const Config = imports.misc.config;
+const shellVersion = parseFloat(Config.PACKAGE_VERSION);
 
 // mostly taken from: Simple Task Bar by fthx - https://extensions.gnome.org/extension/2672/simple-task-bar/
 // removed some functionality (interactivity) and added some others
@@ -21,13 +24,13 @@ function disable() {
 }
 
 var PanelAppIconBar = new Lang.Class({
-    Name: 'PanelAppIconBar.PanelAppIconBar',
-    _init: function() {
+	Name: 'PanelAppIconBar.PanelAppIconBar',
+	_init: function() {
 		this.settings = ExtensionUtils.getSettings('org.gnome.shell.extensions.panel-icons');
 		this.iconContainer = new St.BoxLayout({});
 		main.panel._leftBox.insert_child_at_index(this.iconContainer, main.panel._leftBox.get_n_children() - 1);
-		
-		// panelMasker is used to mask the Panel while mainting its functions. See togglePanelVisibility(). 
+
+		// panelMasker is used to mask the Panel while mainting its functions. See togglePanelVisibility().
 		// 2px because 1px caused problems with custom hotcorners.
 		this.panelMasker = new St.Bin({
 			visible: false,
@@ -49,7 +52,13 @@ var PanelAppIconBar = new Lang.Class({
 		this.windowChangeMonitor = global.display.connect('window-left-monitor', Lang.bind(this, this.updateIcons.bind(this)));
 		this.workspaceChanged = global.workspace_manager.connect('active-workspace-changed', Lang.bind(this, this.updateIcons.bind(this)));
 		this.workspaceNumberChanged = global.workspace_manager.connect('notify::n-workspaces', Lang.bind(this, this.updateIcons.bind(this)));
-		this.scrolledOnPanel = main.panel.connect('scroll-event', this.onPanelScrollEvent.bind(this));
+
+		// only switch ws via panel below 40 since 40 allows super+scroll to switch workspaces
+		if (shellVersion < 40) {
+			this.scrolledOnPanel = main.panel.connect('scroll-event', this.onPanelScrollEvent.bind(this));
+			this.viewSelector = imports.ui.viewSelector;
+		}
+
 		this.signalsArray = [];
 		this.signalsArray.push( this.settings.connect("changed::use-symbolic-icons", this.updateIcons.bind(this)) );
 		this.signalsArray.push( this.settings.connect("changed::icon-size", this.updateIcons.bind(this)) );
@@ -73,7 +82,7 @@ var PanelAppIconBar = new Lang.Class({
 		this.updateIcons();
 	},
 
-    _destroy: function() {
+	_destroy: function() {
 		// remove keybindings
 		main.wm.removeKeybinding('toggle-panel');
 		main.wm.removeKeybinding('focus-prev-window');
@@ -91,8 +100,11 @@ var PanelAppIconBar = new Lang.Class({
 		global.display.disconnect(this.windowChangeMonitor);
 		global.workspace_manager.disconnect(this.workspaceChanged);
 		global.workspace_manager.disconnect(this.workspaceNumberChanged);
-		main.panel.disconnect(this.scrolledOnPanel);
 		this.signalsArray.forEach(signalID => this.settings.disconnect(signalID));
+		if (shellVersion < 40) {
+			main.panel.disconnect(this.scrolledOnPanel);
+			this.viewSelector = null;
+		}
 
 		this.settings.run_dispose();
 
@@ -119,14 +131,14 @@ var PanelAppIconBar = new Lang.Class({
 		let parent;
 		let appMenu = main.panel.statusArea.appMenu;
 
-        if (appMenu)
-            parent = appMenu.container.get_parent();
+		if (appMenu)
+			parent = appMenu.container.get_parent();
 
-        if (parent)
-            parent.remove_child(appMenu.container);
+		if (parent)
+			parent.remove_child(appMenu.container);
 
-        if ((extensionDisabled == true || !this.settings.get_boolean("disable-appmenu")) && appMenu)
-            main.panel._leftBox.insert_child_above(appMenu.container, null);
+		if ((extensionDisabled == true || !this.settings.get_boolean("disable-appmenu")) && appMenu)
+			main.panel._leftBox.insert_child_above(appMenu.container, null);
 	},
 
 	changePanelHeight: function(extensionDisabled) {
@@ -134,7 +146,7 @@ var PanelAppIconBar = new Lang.Class({
 		this.updateIcons();
 	},
 
-	// hiding the main.panel will disable hotcorners, status and notification areas. To keep them I just set the height of main.panel to 2 and set_opacity(0). 
+	// hiding the main.panel will disable hotcorners, status and notification areas. To keep them I just set the height of main.panel to 2 and set_opacity(0).
 	// A black bar of 2 pixel is added to mask the wallpaper
 	togglePanelVisibility: function(extensionDisabled) {
 		if (extensionDisabled == true || this.panelMasker.visible) {
@@ -192,7 +204,7 @@ var PanelAppIconBar = new Lang.Class({
 					direction = Meta.MotionDirection.DOWN;
 				break;
 		}
-		
+
 		if (direction !== null) {
 			// Prevent scroll events from triggering too many workspace switches
 			// by adding a 250ms deadtime between each scroll event.
@@ -208,9 +220,9 @@ var PanelAppIconBar = new Lang.Class({
 				});
 
 			let ws;
-			
+
 			ws = activeWs.get_neighbor(direction)
-			
+
 			if (main.wm._workspaceSwitcherPopup == null)
 			// Support Workspace Grid extension showing their custom Grid Workspace Switcher
 			if (global.workspace_manager.workspace_grid !== undefined) {
@@ -226,19 +238,19 @@ var PanelAppIconBar = new Lang.Class({
 			main.wm._workspaceSwitcherPopup.connect('destroy', function() {
 				main.wm._workspaceSwitcherPopup = null;
 			});
-			
+
 			// If Workspace Grid is installed, let them handle the scroll behaviour.
 			if (global.workspace_manager.workspace_grid !== undefined)
 				ws = global.workspace_manager.workspace_grid.actionMoveWorkspace(direction);
 			else
 				main.wm.actionMoveWorkspace(ws);
-			
+
 			// Do not show workspaceSwitcher in overview
 			if (!main.overview.visible)
 				main.wm._workspaceSwitcherPopup.display(direction, ws.index());
-			
+
 			return true;
-			
+
 
 		} else {
 			return false;
@@ -246,8 +258,8 @@ var PanelAppIconBar = new Lang.Class({
 	},
 
 	// update the panel icon bar
-    updateIcons: function() {   
-    	// destroy old icons	
+	updateIcons: function() {
+		// destroy old icons
 		this.iconContainer.destroy_all_children();
 
 		let iconSize = this.settings.get_int("icon-size");
@@ -256,11 +268,11 @@ var PanelAppIconBar = new Lang.Class({
 		if (!this.settings.get_boolean("display-last-workspace"))
 			workspaceCount -= 1;
 
-        for (let wsIndex = 0; wsIndex < workspaceCount; wsIndex++) {
+		for (let wsIndex = 0; wsIndex < workspaceCount; wsIndex++) {
 			let workspace = global.workspace_manager.get_workspace_by_index(wsIndex);
 			let wsIsActive = global.workspace_manager.get_active_workspace_index() == wsIndex;
 			let windows = workspace.list_windows().reverse();
-			
+
 			// create padding infront of each workspace section
 			let padding = new St.Widget({width: 25});
 			this.iconContainer.add_child(padding);
@@ -274,7 +286,7 @@ var PanelAppIconBar = new Lang.Class({
 				let app = Shell.WindowTracker.get_default().get_window_app(windows[i]);
 				if (!app)
 					continue;
-					
+
 				let appIcon = new PanelAppIcon(app, windows[i], iconSize, useSymbolicIcons);
 				this.iconContainer.add_child(appIcon);
 
@@ -311,7 +323,7 @@ var PanelAppIcon = GObject.registerClass(
 
 			let icon = app.create_icon_texture(iconSize);
 			this.set_child(icon);
-			
+
 			// turn icons into symbolic icons
 			if (useSymbolicIcons) {
 				this.add_style_class_name("icon-mode-symbolic-panel-icons");

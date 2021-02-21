@@ -20,6 +20,7 @@ I recommend "Unite" by hardpixel (https://extensions.gnome.org/extension/1287/un
 
 - 3.36
 - 3.38
+- 40
 
 ## Installation
 

@@ -2,10 +2,10 @@
   "name": "Panel Icons",
   "description": "Fork of Simple Task Bar by fthx. \n\nRemoved: \n- Interactivity (see README on Github for reasoning). \n\nAdded: \n- Adjust panel height \n- option to disable AppMenu \n- change workspaces by scrolling on the panel \n- add keybindings to hide the panel and to cycle through windows based on their order in panel",
   "uuid": "panel-icons@leleat-on-github",
-  "version": 1,
   "url": "https://github.com/Leleat/simple-task-bar",
   "shell-version": [
     "3.36",
-    "3.38"
+    "3.38",
+    "40.0"
   ]
 }
