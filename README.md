@@ -1,4 +1,7 @@
-# Panel Icons
+# No longer maintained
+.
+.
+.
 
 This is a fork of https://github.com/fthx/simple-task-bar. 
 
@@ -20,7 +23,6 @@ I recommend "Unite" by hardpixel (https://extensions.gnome.org/extension/1287/un
 
 - 3.36
 - 3.38
-- 40
 
 ## Installation
 
